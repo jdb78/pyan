@@ -219,7 +219,7 @@ class CallGraphVisitor(ast.NodeVisitor):
                     if candidate_to_node.name == to_node.name:
                         to_node = candidate_to_node
                         import_mapping[from_node] = to_node
-                        if to_node.flavor == Flavor.IMPORTEDITEM:
+                        if to_node.flavor == Flavor.IMPORTEDITEM and from_node is not to_node:  # avoid self-recursion
                             imports_to_resolve.add(to_node)
                         break
 
